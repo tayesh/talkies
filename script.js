@@ -5,42 +5,48 @@ const loginButton = document.getElementById("navlogin");
 
 const logoutButton = document.getElementById("logout");
 
-const Name =document.getElementById('name');
+const Name = document.getElementById('name');
 const content = document.getElementById("content");
-const signupButton= document.getElementById('signup');
+const signupButton = document.getElementById('signup');
 
 
-Name.addEventListener('click',function () {
-    if(user){
+Name.addEventListener('click', function () {
+    if (user) {
 
         navToHome();
 
     }
-    else{
-        document.getElementById("staticpage").style.display='block';
-        content.style.display='none';        
+    else {
+        document.getElementById("staticpage").style.display = 'block';
+        content.style.display = 'none';
 
     }
-    
+
 })
 
 const renderContent = () => {
     if (user) {
-        document.getElementById('home').style.display ='block'
-        document.getElementById('home').addEventListener('click',navToHome);
-        document.getElementById('profile').style.display='block'
-        document.getElementById('profile').addEventListener('click',navToProfile)
+        document.getElementById('home').style.display = 'block'
+        document.getElementById('home').addEventListener('click', navToHome);
+        document.getElementById('profile').style.display = 'block'
+        document.getElementById('profile').addEventListener('click', navToProfile)
         navToHome();
     }
     else {
-        document.getElementById('home').style.display ='none'
-        document.getElementById('profile').style.display='none'
+        document.getElementById('home').style.display = 'none'
+        document.getElementById('profile').style.display = 'none'
 
-       navToLogin();
+        if (userList) {
+            navToLogin();
+        }
+        else {
+            document.getElementById("staticpage").style.display = 'block';
+            content.style.display = 'none';
+        }
 
     }
 }
-const navToLandingPage=()=>{
+const navToLandingPage = () => {
     content.innerHTML = `
     <div class="login">
     
@@ -54,8 +60,8 @@ const navToLandingPage=()=>{
 
 
 const navToLogin = () => {
-    document.getElementById("staticpage").style.display='none';
-    content.style.display='block';
+    document.getElementById("staticpage").style.display = 'none';
+    content.style.display = 'block';
     content.innerHTML = `
             <div class="login">
             <h2 class="text-center f-64 abz form-heading">Welcome to <span class="jua">Talkies</span></h2>
@@ -75,10 +81,10 @@ const navToLogin = () => {
     const login = document.getElementById("login");
     login.addEventListener('click', userLogin);
 }
-loginButton.addEventListener('click',navToLogin);
+loginButton.addEventListener('click', navToLogin);
 const navToRegistration = () => {
-    document.getElementById("staticpage").style.display='none';
-    content.style.display='block';
+    document.getElementById("staticpage").style.display = 'none';
+    content.style.display = 'block';
     content.innerHTML = `
             <div class="login">
             <h2 class="text-center f-64 abz form-heading">Welcome to <span class="jua">Talkies</span></h2>
@@ -104,8 +110,8 @@ const navToRegistration = () => {
 
 
 }
-const navToProfile=()=>{
-    content.innerHTML=`<div>
+const navToProfile = () => {
+    content.innerHTML = `<div>
         <div>
 
         </div>
@@ -125,15 +131,15 @@ const navToProfile=()=>{
     document.getElementById('home').style.borderBottom = 'none'
     document.getElementById('profile').style.borderBottom = '2px solid black'
     document.getElementById('notifications').style.borderBottom = 'none'
-    document.getElementById('gender').addEventListener('change', function() {
+    document.getElementById('gender').addEventListener('change', function () {
         const selectedGender = this.options[this.selectedIndex].text;
         // document.getElementById('selected-gender').innerText = 'Selected Gender: ' + selectedGender;
         console.log(selectedGender);
-      });
+    });
 
 }
-const navToNotifications=()=>{
-    content.innerHTML=`<h2>hello from notifications</h2>`
+const navToNotifications = () => {
+    content.innerHTML = `<h2>hello from notifications</h2>`
     document.getElementById('home').style.borderBottom = 'none'
     document.getElementById('profile').style.borderBottom = 'none   '
     document.getElementById('notifications').style.borderBottom = '2px solid black'
@@ -166,7 +172,7 @@ const navToHome = () => {
         </div>
             
     </div>`;
-    document.getElementById('postbox').value=null;
+    document.getElementById('postbox').value = null;
     loginButton.style.display = 'none';
     logoutButton.style.display = 'block';
     document.getElementById('uploadArea').addEventListener('click', function () {
@@ -206,12 +212,12 @@ const navToHome = () => {
     const post = () => {
         const postText = document.getElementById('postbox').value;
         console.log(postText, image);
-        
+
     }
     document.getElementById('postbtn').addEventListener('click', post);
     document.getElementById('home').style.borderBottom = '2px solid black'
     document.getElementById('profile').style.borderBottom = 'none'
-    
+
 
 }
 const userLogin = () => {
@@ -264,7 +270,7 @@ const logout = () => {
     renderContent();
 
 }
-signupButton.addEventListener('click',navToRegistration);
+signupButton.addEventListener('click', navToRegistration);
 logoutButton.addEventListener('click', logout);
 
 renderContent();
