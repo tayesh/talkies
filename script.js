@@ -7,6 +7,9 @@ const logoutButton = document.getElementById("logout");
 
 const Name =document.getElementById('name');
 const content = document.getElementById("content");
+const signupButton= document.getElementById('signup');
+
+
 Name.addEventListener('click',function () {
     if(user){
 
@@ -74,6 +77,7 @@ const navToLogin = () => {
 }
 loginButton.addEventListener('click',navToLogin);
 const navToRegistration = () => {
+    document.getElementById("staticpage").style.display='none';
     content.style.display='block';
     content.innerHTML = `
             <div class="login">
@@ -259,6 +263,7 @@ const logout = () => {
     user = null;
     renderContent();
 }
+signupButton.addEventListener('click',navToRegistration);
 logoutButton.addEventListener('click', logout);
 
 renderContent();
