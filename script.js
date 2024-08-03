@@ -36,7 +36,7 @@ const renderContent = () => {
         document.getElementById('home').style.display = 'none'
         document.getElementById('profile').style.display = 'none'
 
-        if (userList) {
+        if (userList[0]) {
             navToLogin();
         }
         else {
