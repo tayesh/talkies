@@ -211,7 +211,7 @@ const navToHome = () => {
     document.getElementById('postbtn').addEventListener('click', post);
     document.getElementById('home').style.borderBottom = '2px solid black'
     document.getElementById('profile').style.borderBottom = 'none'
-    document.getElementById('notifications').style.borderBottom = 'none'
+    
 
 }
 const userLogin = () => {
