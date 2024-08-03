@@ -37,11 +37,13 @@ const renderContent = () => {
         document.getElementById('profile').style.display = 'none'
 
         if (userList[0]) {
+            // console.log(userList[0]);
             navToLogin();
         }
         else {
             document.getElementById("staticpage").style.display = 'block';
             content.style.display = 'none';
+            console.log(userList[0]);
         }
 
     }
