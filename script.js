@@ -36,7 +36,7 @@ const renderContent = () => {
         document.getElementById('home').style.display ='none'
         document.getElementById('profile').style.display='none'
 
-       navToLandingPage();
+       navToLogin();
 
     }
 }
@@ -262,6 +262,7 @@ const userReg = () => {
 const logout = () => {
     user = null;
     renderContent();
+
 }
 signupButton.addEventListener('click',navToRegistration);
 logoutButton.addEventListener('click', logout);
