@@ -15,37 +15,88 @@
 
 <body>
     <div class="Navbar">
-        <h2 class="navbar-name">Talkies</h2>
+        <h2 id="name" class="navbar-name">Talkies</h2>
         <div class="nav-content">
             <h2 id="home" style="display: none;">Home</h2>
-            <h2 id="profile" style="display: none;">Profile</h2>
-            <h2 id="notifications" style="display: none;">Notifications</h2>
+            
+            
         </div>
         <div id="navbar-user-info">
+            <h2 id="profile" style="display: none;">Profile</h2>
             <h2 id="navlogin" style="cursor: pointer;">Login</h2>
+            
             <h2 id="logout" style="display: none; cursor: pointer;">Log Out</h2>
         </div>
+    </div>
+    <div id="staticpage" class="staticpage">
+        <section class="banner">
+            <h2 class="bannerH2 jua">Talkies</h2>
+            <h3 class="bannerH3 abz">Talikes is the social platform designed to connect you with people who share your passions and interests. Whether you’re here to share your stories, discover new perspectives, or just chat with friends, Talikes is the place where you belong. Join us today and start making meaningful connections!</h3>
+            <h2 class="bannerButton abz">Sign Up</h2>
+
+        </section>
+        <section class="personalizedContentFeed">
+            <div class="feature">
+                <h2 class="jua">Personalized Content Feed</h2>
+                <p class="abz">Stay updated with the content that matters most to you. Our 
+                    smart recommendation system tailors your feed based on your 
+                    interests, ensuring you never miss out on the topics you love.</p>
+
+            </div>
+            <div class="featureImg">
+                <img class="" src="https://i.ibb.co/nw7cXYv/image.png" alt="">
+            </div>
+
+        </section>
+        <section class="personalizedContentFeed">
+            <div class="featureImg">
+                <img class="" src="https://i.ibb.co/xzQ1srX/image.png" alt="">
+            </div>
+            <div  class="feature" id="orange">
+                <h2 class="jua">Join the Conversation</h2>
+                <p class="abz">Share your thoughts and opinions on the latest topics and engage
+                    with a community of passionate individuals. Like, comment, and 
+                    connect with others to spark meaningful discussions.</p>
+
+            </div>
+
+        </section>
+        <section  class="personalizedContentFeed">
+            <div class="feature" id="purple">
+                <h2 class="jua">Trending Topics</h2>
+                <p class="abz">Stay in the loop with real-time updates on the most talked-about 
+                    topics. Explore what’s trending in various categories and join the 
+                    conversation with your insights and opinions.</p>
+
+            </div>
+            <div class="featureImg">
+                <img class="" src="https://i.ibb.co/7VzQfCN/image.png" alt="">
+            </div>
+
+        </section>
     </div>
     <div id="content">
 
     </div>
-    <div>
+    <Footer>
+        
+        <div id="footername">
+            <h2 class=" jua white">Talkies</h2>
+            <p class=" abz white f-24">Talikes is a dynamic social platform where you can connect, share, and engage with people who inspire you. Join us today and be part of our growing community!</p>
+        </div>
         <div>
+            <h3 class="abz f-48 white margin0">Quick Links</h3>
+                <ul class="abz f-24" style="display:flex; flex-direction:column; align-items: end; gap: 20px; list-style: none; padding: 0;">
+                    <li><a href="/about" style="color: #fff; text-decoration: none;">About Us</a></li>
+                    <li><a href="/contact" style="color: #fff; text-decoration: none;">Contact</a></li>
+                    <li><a href="/privacy" style="color: #fff; text-decoration: none;">Privacy Policy</a></li>
+                    <li><a href="/terms" style="color: #fff; text-decoration: none;">Terms of Service</a></li>
+                </ul>
+        </div>
 
-        </div>
-        <div class="profileinfoCollector">
-            <input class="input_box" type="text" placeholder="Name">
-            <input class="input_box" type="text" placeholder="Proffession">
-            <input class="input_box" type="text" placeholder="City">
-            <div class="dropdown-container">
-                <select id="gender" name="gender">
-                    <option value="" disabled selected>Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-        </div>
-    </div>
+    </Footer>
+    
+    
 
 
 
