@@ -28,9 +28,14 @@ const renderContent = () => {
     if (user) {
         document.getElementById('home').style.display = 'block'
         document.getElementById('home').addEventListener('click', navToHome);
-        document.getElementById('profile').style.display = 'block'
         document.getElementById('profile').addEventListener('click', navToProfile)
-        navToHome();
+        document.getElementById("staticpage").style.display = 'none';
+        if(user.userInfo?.userName){
+            navToHome();
+        }
+        else{
+            navToProfile();
+        }
     }
     else {
         document.getElementById('home').style.display = 'none'
@@ -47,13 +52,6 @@ const renderContent = () => {
         }
 
     }
-}
-const navToLandingPage = () => {
-    content.innerHTML = `
-    <div class="login">
-    
-    </div>`;
-
 }
 
 
@@ -91,15 +89,15 @@ const navToRegistration = () => {
             <div class="login">
             <h2 class="text-center f-64 abz form-heading">Welcome to <span class="jua">Talkies</span></h2>
             <h3 class="text-center f-48 abz form-heading">Lets have some talks</h3>
-            <div class="form">
+            <form class="form">
                 <input id="regEmail" class="input_box" type="text" name="email" id="" placeholder="email@gmail.com"/>
-                    <input id="regPass" class="input_box" type="text" name="email" id="" placeholder="password"/>
+                    <input id="regPass" class="input_box" type="text" name="email" id="" placeholder="password" required/>
                     <input id="regConfPass" class="input_box" type="text" name="email" id="" placeholder="confirm password"/>
                     <p id="passMatchError" class="error" style="display: none;">please confirm the password correctly</p>
                         <h2 id="registration" class="button">Registration</h2>
                     </div>
                     <p class="text-center abz f-24">Already a member ? <span id="navToLoginBtn1" class="text-primary">Login </span></p>
-            </div>`;
+            </form>`;
     loginButton.style.display = 'block';
     logoutButton.style.display = 'none';
     const navToLoginBtn1 = document.getElementById("navToLoginBtn1");
@@ -112,41 +110,139 @@ const navToRegistration = () => {
 
 
 }
-const navToProfile = () => {
-    content.innerHTML = `<div>
-        <div>
-
-        </div>
-        <div class="profileinfoCollector">
-            <input class="input_box" type="text" placeholder="Name">
-            <input class="input_box" type="text" placeholder="Proffession">
-            <input class="input_box" type="text" placeholder="City">
-            <div class="dropdown-container">
-                <select id="gender" name="gender">
-                    <option value="" disabled selected>Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
+const navToProfile =  () => {
+    const male = "https://i.ibb.co/F6ZvDbJ/istockphoto-1040990130-612x612.png";
+    const female = "https://i.ibb.co/Gdt5nt4/istockphoto-1040990130-612x61.png";
+    const updateProfileForm= `<div >
+        <h2 class="updateProfileText abz">Your Profile Information</h2>
+        <hr style="width: 50%; text-align: center; margin-bottom: 40px;">
+        <div id="profileUpdate">
+            <div id="profileImageContainer">
+                <div id="justAnotherContainer">
+                    <img id="profileImage" src="https://i.ibb.co/F6ZvDbJ/istockphoto-1040990130-612x612.png" alt="">
+                </div>
+                <img id="profileImageUpdateBtn" src="https://i.ibb.co/kmVswCW/upload-sign-icon-button-vector-13742369.png" alt="">
+                <input type="file" id="image-input" accept="image/*" style="display: none;" />
+    
             </div>
+            <form id="profileForm" class="profileinfoCollector">
+                <input class="input_box" type="text" name="name" placeholder="Name" required>
+                <input class="input_box" type="text" name="profession" placeholder="Profession">
+                <input class="input_box" type="text" name="city" placeholder="City">
+                <input class="input_box" type="text" name="country" placeholder="Country">
+                <div class="dropdown-container">
+                    <select id="gender" class="input_box" name="gender" required>
+                        <option value="" disabled selected>Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+            </form>
         </div>
-    </div>`
+        <h2 id="ProfileUpdateButton" class="button" style="max-width: 250px; text-align: center; margin:20px auto 30px;">Update</h2>
+    </div>`;
+    const updatedProfile =`
+    <div class="showProfileInfo">
+        <img id="profilePicture" src="${user.userInfo?.image}" alt="">
+        <div class="profileDetails">
+            <h2 id="profileName">${user.userInfo?.userName}</h2>
+            <h4 id="profileGender">(<span>${user.userInfo?.gender}</span>)</h4>
+            <h3 id="profileProfession">${user.userInfo?.profession}</h3>
+            <h3 id="profileAddress"><span>${user.userInfo?.city}</span>, <span>${user.userInfo?.country}</span></h3>
+            
+        </div>
+    </div>
+    `
+    if(!user.userInfo){
+        content.innerHTML =updateProfileForm;
+    }
+    else{
+        content.innerHTML = updatedProfile;
+    }
     document.getElementById('home').style.borderBottom = 'none'
-    document.getElementById('profile').style.borderBottom = '2px solid black'
-    document.getElementById('notifications').style.borderBottom = 'none'
-    document.getElementById('gender').addEventListener('change', function () {
+    document.getElementById('profile').style.border = '2px solid black'
+    loginButton.style.display = 'none';
+    logoutButton.style.display = 'block';
+    
+    document.getElementById('gender')?.addEventListener('change', function () {
         const selectedGender = this.options[this.selectedIndex].text;
+        const profilePicture =document.getElementById("profileImage").src;
+        if(user.image){
+            document.getElementById("profileImage").src=user.image;
+
+        }
+        else{
+            if(profilePicture!=male && profilePicture!=female){
+
+            }
+            else{
+                if(selectedGender=='Male'){
+                    document.getElementById("profileImage").src=male;
+        
+                }
+                if(selectedGender=='Female'){
+                    document.getElementById("profileImage").src=female;
+                }
+            }
+        }
         // document.getElementById('selected-gender').innerText = 'Selected Gender: ' + selectedGender;
         console.log(selectedGender);
     });
+    document.getElementById('profileImageUpdateBtn')?.addEventListener('click', function () {
+        document.getElementById('image-input').click();
+    });
+    document.getElementById('image-input')?.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const preview = document.getElementById('profileImage');
+                preview.src = e.target.result;
+                
+            }
+            reader.readAsDataURL(file);
+
+        }
+    });
+    document.getElementById('ProfileUpdateButton')?.addEventListener('click',async function() {
+        const form = document.getElementById('profileForm');
+        
+        // Check if the form is valid
+        if (form.checkValidity()) {
+            // Gather form data
+            const formData = new FormData(form);
+            
+            // Example: Log data to console
+            const userInfo ={
+                userName:formData.get('name'),
+                profession:formData.get('profession'),
+                country:formData.get('country'),
+                city:formData.get('city'),
+                gender:formData.get('gender'),
+                image:document.getElementById('profileImage').src
+            }
+            console.log(userInfo);
+            user.userInfo=userInfo;
+            document.getElementById('profile').src=userInfo.image;
+            document.getElementById('profile').tooltip=userInfo.userName;
+            document.getElementById('profile').style.display='block';
+            
+            
+
+
+            // Submit form data to the server or perform other actions here
+            // e.g., AJAX request, fetch API, etc.
+
+            // Example: Alert the user
+            alert('Profile updated successfully!');
+            await renderContent();
+        } else {
+            alert('Please fill out all required fields.');
+        }
+    });
 
 }
-const navToNotifications = () => {
-    content.innerHTML = `<h2>hello from notifications</h2>`
-    document.getElementById('home').style.borderBottom = 'none'
-    document.getElementById('profile').style.borderBottom = 'none   '
-    document.getElementById('notifications').style.borderBottom = '2px solid black'
 
-}
 const navToHome = () => {
     content.innerHTML = ` <div class="postboxContainer">
         <div class="pstbx">
@@ -218,10 +314,11 @@ const navToHome = () => {
     }
     document.getElementById('postbtn').addEventListener('click', post);
     document.getElementById('home').style.borderBottom = '2px solid black'
-    document.getElementById('profile').style.borderBottom = 'none'
+    document.getElementById('profile').style.border = 'none'
 
 
 }
+
 const userLogin = () => {
     const email = document.getElementById("loginEmail").value;
     const pass = document.getElementById("loginPass").value;

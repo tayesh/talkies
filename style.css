@@ -1,57 +1,64 @@
-body{
+body {
     margin: 0;
     padding: 0;
 }
-.Navbar{
+
+.Navbar {
 
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
     background-color: #8BD6E6;
-    
+
 }
-.nav-content{
+
+.nav-content {
     display: flex;
     font-family: "ABeeZee", sans-serif;
     gap: 30px;
 }
-.nav-content h2{
+
+.nav-content h2 {
     cursor: pointer;
 }
-.navbar-name{
-    margin:15px 0;
+
+.navbar-name {
+    margin: 15px 0;
     font-family: "Jua", sans-serif;
     font-size: 45px;
 }
-#navbar-user-info{
+
+#navbar-user-info {
     font-family: "ABeeZee", sans-serif;
     display: flex;
+    align-items: center;
     gap: 30px;
 }
 
-.banner{
+.banner {
     background-image: url("https://i.ibb.co/qFxkyT7/4a093946-56d5-4109-a5c8-b09402a4ae24.png");
-    height:700px;
+    height: 700px;
     width: 100%;
     background-size: cover;
-            background-position: center;
+    background-position: center;
     display: flex;
     flex-direction: column;
-    align-items:start;
+    align-items: start;
     justify-content: center;
-    
-    
+
+
 }
 
-.bannerH2{
+.bannerH2 {
     font-size: 150px;
     margin: 0;
     text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.7);
     color: white;
     margin-left: 30px;
 }
-.bannerH3{
+
+.bannerH3 {
     font-size: 24px;
     margin: 0;
     width: 50%;
@@ -59,12 +66,13 @@ body{
     color: #232323;
     margin-left: 30px;
 }
-.bannerButton{
-    margin-top:30;
+
+.bannerButton {
+    margin-top: 30;
     margin-left: 60px;
     width: 25%;
     background-color: rgb(50, 50, 139);
-    padding: 15px ;
+    padding: 15px;
     text-align: center;
     border-radius: 10px;
     border: 4px solid white;
@@ -72,46 +80,54 @@ body{
     font-size: 30px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.7);
 }
-.personalizedContentFeed{
+
+.personalizedContentFeed {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
-    padding:30px 30px 0 30px;
+    padding: 30px 30px 0 30px;
 
 }
-.featureImg{
+
+.featureImg {
     width: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.featureImg img{
+
+.featureImg img {
     width: 100%;
 }
-.feature{
+
+.feature {
     grid-column: span 3;
-    padding:0 30px;
+    padding: 0 30px;
     background-color: #8BD6E6;
     border-radius: 20px;
 }
-.feature h2{
+
+.feature h2 {
     font-size: 40px;
     margin-bottom: 0;
 }
-.feature p{
+
+.feature p {
     margin-top: 0;
     font-size: 28px;
     color: white;
 }
-#purple{
+
+#purple {
     background-color: #E68BD9;
 }
-#orange{
+
+#orange {
     background-color: #FFA827;
 }
 
 
-.input_box{
+.input_box {
     height: 50px;
     border-radius: 10px;
     border: none;
@@ -121,145 +137,449 @@ body{
     padding: 0 20px;
 
 }
-.button{
+
+.button {
     font-size: 30px;
     background-color: #8BD6E6;
     border-radius: 10px;
-    padding:10px 60px;
+    padding: 10px 60px;
     margin-top: 0;
     font-family: "ABeeZee", sans-serif;
     cursor: pointer;
 }
-.form{
+
+.form {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    
+
 }
-.text-center{
+
+.text-center {
     text-align: center;
 }
-.abz{
+
+.abz {
     font-family: "ABeeZee", sans-serif;
 }
-.jua{
+
+.jua {
     font-family: "Jua", sans-serif;
 }
-.f-64{
+
+.f-64 {
     font-size: 64px;
 }
-.f-48{
+
+.f-48 {
     font-size: 48px;
 }
-.form-heading{
-    margin:0;
+
+.form-heading {
+    margin: 0;
 }
-.login{
+
+.login {
     padding-top: 30px;
 }
-.f-24{
+
+.f-24 {
     font-size: 24px;
 }
-.text-primary{
+
+.text-primary {
     color: #8BD6E6;
     cursor: pointer;
 }
-.error{
+
+.error {
     color: crimson;
-    margin:0;
+    margin: 0;
 }
-#postbox{
+
+#postbox {
     width: 100%;
-    border:4px solid #D9D9D9;
+    border: 4px solid #D9D9D9;
     border-radius: 10px;
     height: 200px;
-    padding:30px;
+    padding: 30px;
     font-size: 24px;
     font-family: "ABeeZee", sans-serif;
 }
-.pstbx{
+
+.pstbx {
     grid-column: span 3;
     display: flex;
     position: relative;
 }
-.postbtn{
+
+.postbtn {
     position: absolute;
     bottom: 0;
-    right:10px;
+    right: 10px;
     width: 64px;
 
 }
 
-.postboxContainer{
-    padding:40px;
+.postboxContainer {
+    padding: 40px;
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
 }
-.addPhotos{
+
+.addPhotos {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
 }
-.hoverEffect:hover{
+
+.hoverEffect:hover {
     background-color: #D9D9D9;
 
 }
-.imgDeleteButton{
+
+.imgDeleteButton {
     position: absolute;
-    top:10px;
-    right:10px;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+
+}
+.updateProfileText{
+    text-align: center;
+    font-size: 40px;
+}
+#profileUpdate{
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 30px;
+}
+#profileImageContainer {
+    position: relative;
+    width: 300px;
+    height: 300px; 
+}
+
+#justAnotherContainer {
+    width: 100%;
+    height: 100%;
+    border: 4px solid rgb(69, 69, 69); 
+    border-radius: 50%; 
+    overflow: hidden; 
+    position: relative;
+}
+
+#profileImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#profileImageUpdateBtn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px; 
+    border: 2px solid white; 
+    border-radius: 50%; 
+    padding: 0;
+    background-color: white; 
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); 
     cursor: pointer;
 }
-.profileinfoCollector{
+.showProfileInfo{
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+.profileDetails{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    
+}
+#profileName{
+    font-family: "ABeeZee", sans-serif;
+    font-size: 48px;
+    margin: 0;
+}
+#profileGender{
+    font-family: "ABeeZee", sans-serif;
+    font-size: 32px;
+    margin: 0;
+    color: #4e4e4e;
+}
+#profileProfession{
+    font-family: "ABeeZee", sans-serif;
+    font-size: 40px;
+    margin: 0;
+    color: #4e4e4e;
+}
+#profileAddress{
+    font-family: "ABeeZee", sans-serif;
+    font-size: 40px;
+    margin: 0;
+    color: #4e4e4e;
+}
+#profilePicture{
+    width: 350px;
+    border: 4px solid #aeaeae;
+}
+.loader {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+.profileinfoCollector {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
+
 .dropdown-container {
-    margin: 20px;
-  }
-  
-  label {
+   
+}
+
+label {
     font-size: 16px;
     margin-right: 10px;
-  }
-  
-  select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  select:focus {
-    border-color: #4CAF50;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-    outline: none;
-  }
+}
 
-footer{
+select {
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+select:focus {
+    border-color: #4e4e4e;
+    outline: none;
+}
+
+footer {
     background-color: #232323;
     padding: 60px 60px;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-#footername h2{
+
+#footername h2 {
     font-size: 100px;
     margin: 0;
 }
-#footername{
+
+#footername {
     width: 50%;
 }
 
-.white{
+#quickLinks {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.white {
     color: white;
 }
-.margin0{
+
+.margin0 {
     margin: 0;
+}
+
+/* Mobile devices (up to 767px) */
+@media only screen and (max-width: 767px) {
+    .Navbar {
+        padding: 0 20px;
+        align-items: center;
+    }
+
+    .navbar-name {
+        font-size: 36px;
+    }
+
+    .nav-content,
+    #navbar-user-info {
+        gap: 20px;
+        font-size: 14px;
+        flex-wrap: wrap;
+    }
+
+    .banner {
+        align-items: center;
+        height: 550px;
+    }
+
+    .bannerH2 {
+        font-size: 80px;
+        margin-left: 0;
+
+    }
+
+    .bannerH3 {
+        font-size: 18px;
+        width: 80%;
+        text-align: center;
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    .bannerButton {
+        width: 50%;
+        font-size: 24px;
+        margin-left: 0;
+    }
+
+    .feature h2 {
+        font-size: 32px;
+    }
+
+    .feature p {
+        font-size: 20px;
+    }
+
+    .featureImg {
+        width: 100%;
+    }
+    .postboxContainer{
+        grid-template-columns: repeat(1,1fr);
+        padding: 10px;
+        gap: 0;
+        
+    }
+    #postbox{
+        height: 150px;
+        font-size: 18px;
+        padding: 10px;
+    }
+    .addPhotos{
+        margin-top: 10px;
+    }
+    footer {
+        padding: 40px 20px;
+        flex-direction: column;
+        align-items: center;
+    }
+    #quickLinks{
+        align-items: center;
+    }
+
+
+    #footername h2 {
+        font-size: 64px;
+    }
+
+    .f-64 {
+        font-size: 48px;
+    }
+
+    .f-48 {
+        font-size: 32px;
+    }
+
+    .f-24 {
+        font-size: 18px;
+    }
+
+    .personalizedContentFeed {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablet devices (768px to 1024px) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .Navbar {
+        padding: 0 30px;
+    }
+
+    .navbar-name {
+        font-size: 40px;
+
+    }
+
+    .nav-content,
+    #navbar-user-info {
+        gap: 25px;
+        font-size: 20px;
+    }
+
+    .bannerH2 {
+        font-size: 120px;
+    }
+
+    .bannerH3 {
+        font-size: 22px;
+        width: 60%;
+    }
+
+    .bannerButton {
+        width: 40%;
+        font-size: 28px;
+    }
+
+    .feature h2 {
+        font-size: 36px;
+    }
+
+    .feature p {
+        font-size: 24px;
+    }
+
+    .featureImg {
+        width: 80%;
+    }
+
+    footer {
+        padding: 50px 40px;
+    }
+
+    #footername h2 {
+        font-size: 80px;
+    }
+
+    .f-64 {
+        font-size: 56px;
+    }
+
+    .f-48 {
+        font-size: 36px;
+    }
+
+    .f-24 {
+        font-size: 20px;
+    }
+
+    .personalizedContentFeed {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
