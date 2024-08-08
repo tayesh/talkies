@@ -17,13 +17,23 @@
 </head>
 
 <body>
+    <!-- Navbar -->
     <div class="Navbar">
+        <!-- navbar name. if not logged in, clicking on this will navigate the user to the static page on the other hand if logged in it
+          will navigate the user to home page-->
         <h2 id="name" class="navbar-name">Talkies</h2>
+        <!-- navbar options -->
         <div class="nav-content">
+            <!-- this button is only visible when user is logged in -->
             <h2 id="home" style="display: none;">Home</h2>
 
 
         </div>
+        <!-- this div below contains the buttons that will be shown depending on if the user is available or not
+         if user is not logged in then the this div will only show the login button which if clicked will navigate the user
+         to the login page. but if the user logs in it will show the profile image 
+         of the user which eventually will navigate the user to the profile page and a logout button. if user clicks the logout button it will 
+         navigate the user back to the login page-->
         <div id="navbar-user-info">
             <img id="profile" src="https://i.ibb.co/F6ZvDbJ/istockphoto-1040990130-612x612.png"
                 style="display: none; width:48px; height: 48px; border-radius: 50%; border:2px solid #aeaeae" />
@@ -32,6 +42,7 @@
             <h2 id="logout" style="display: none; cursor: pointer;">Log Out</h2>
         </div>
     </div>
+    <!-- this div below contains the static page or the landing page we will show the user if not logged in -->
     <div id="staticpage" class="staticpage" style="margin-bottom: 30px;">
         <section class="banner">
             <h2 class="bannerH2 jua">Talkies</h2>
@@ -39,6 +50,7 @@
                 passions and interests. Whether you’re here to share your stories, discover new perspectives, or just
                 chat with friends, Talikes is the place where you belong. Join us today and start making meaningful
                 connections!</h3>
+                <!-- this button below navigates the user to the registration page -->
             <h2 id="signup" class="bannerButton abz" style=" cursor: pointer;">Sign Up</h2>
 
         </section>
@@ -83,50 +95,13 @@
 
         </section>
     </div>
-    <!-- <div class="postContainer">
-        <div class="postTextContainer">
-            <div class="posterInfo">
-                <div class="image-container">
-                    <img src="https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg"
-                        alt="Circular Image">
-                </div>
-                <div>
-                    <h2 class="abz" style="margin:0 0 10px;font-size: 30px;">Ittihad Hasnat</h2>
-                    <p class="inter" style="margin: 0;">June 28, 2024</p>
-                </div>
-            </div>
-            <p class="inter f-24" >Engaging blog posts are the cornerstone of effective digital communication. Drawing on insights from
-                seasoned writers and content strategists, this article explores advanced techniques for capturing
-                readers' attention, maintaining their interest, and encouraging interaction through compelling
-                storytelling and strategic content structuring.</p>
-            <div class="likeCommentButtonContainer">
-                <div class="likeContainer">
-                    <img src="https://i.ibb.co/Nxvpj8T/image.png" alt="">
-                    <p class="inter">32</p>
-                </div>
-                <div class="commentContainer">
-                    <img src="https://i.ibb.co/7J44Rzn/image.png" alt="">
-                    <p class="inter">12</p>
-                </div>
-            </div>
-
-        </div>
-        <div class="postImgContainer">
-            <h2 onclick="menuToggle(event)" class="f-48" style="margin: 0 0 10px 0;">...</h2>
-            <div id="menu" class="menu abz">
-                <h2 style="margin: 0;">Edit</h2>
-                <hr>
-                <h2 style="margin: 10px 0 0;">Delete</h2>
-            </div>
-            <img src="https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg" alt="">
-
-        </div>
-    </div> -->
+    <!-- this div below holds evrything...contents of login page, registration page, home page , profile page will be shown here according to 
+     conditions written in script.js. renderContent() function decides what will be inside this div -->
     <div id="content">
 
     </div>
 
-
+    <!-- this is the footer content below -->
     <Footer>
 
         <div id="footername">
