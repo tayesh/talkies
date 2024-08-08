@@ -1,7 +1,8 @@
 let user = null;
 const userList = [];
-const posts = [];
+let posts = [];
 const loginButton = document.getElementById("navlogin");
+
 
 const logoutButton = document.getElementById("logout");
 
@@ -29,11 +30,12 @@ const renderContent = () => {
         document.getElementById('home').style.display = 'block'
         document.getElementById('home').addEventListener('click', navToHome);
         document.getElementById('profile').addEventListener('click', navToProfile)
+        document.getElementById('profile').style.display = 'block';
         document.getElementById("staticpage").style.display = 'none';
-        if(user.userInfo?.userName){
+        if (user.userInfo?.userName) {
             navToHome();
         }
-        else{
+        else {
             navToProfile();
         }
     }
@@ -110,10 +112,10 @@ const navToRegistration = () => {
 
 
 }
-const navToProfile =  () => {
+const navToProfile = () => {
     const male = "https://i.ibb.co/F6ZvDbJ/istockphoto-1040990130-612x612.png";
     const female = "https://i.ibb.co/Gdt5nt4/istockphoto-1040990130-612x61.png";
-    const updateProfileForm= `<div >
+    const updateProfileForm = `<div >
         <h2 class="updateProfileText abz">Your Profile Information</h2>
         <hr style="width: 50%; text-align: center; margin-bottom: 40px;">
         <div id="profileUpdate">
@@ -141,7 +143,7 @@ const navToProfile =  () => {
         </div>
         <h2 id="ProfileUpdateButton" class="button" style="max-width: 250px; text-align: center; margin:20px auto 30px;">Update</h2>
     </div>`;
-    const updatedProfile =`
+    const updatedProfile = `
     <div class="showProfileInfo">
         <img id="profilePicture" src="${user.userInfo?.image}" alt="">
         <div class="profileDetails">
@@ -153,35 +155,35 @@ const navToProfile =  () => {
         </div>
     </div>
     `
-    if(!user.userInfo){
-        content.innerHTML =updateProfileForm;
+    if (!user.userInfo) {
+        content.innerHTML = updateProfileForm;
     }
-    else{
+    else {
         content.innerHTML = updatedProfile;
     }
     document.getElementById('home').style.borderBottom = 'none'
     document.getElementById('profile').style.border = '2px solid black'
     loginButton.style.display = 'none';
     logoutButton.style.display = 'block';
-    
+
     document.getElementById('gender')?.addEventListener('change', function () {
         const selectedGender = this.options[this.selectedIndex].text;
-        const profilePicture =document.getElementById("profileImage").src;
-        if(user.image){
-            document.getElementById("profileImage").src=user.image;
+        const profilePicture = document.getElementById("profileImage").src;
+        if (user.image) {
+            document.getElementById("profileImage").src = user.image;
 
         }
-        else{
-            if(profilePicture!=male && profilePicture!=female){
+        else {
+            if (profilePicture != male && profilePicture != female) {
 
             }
-            else{
-                if(selectedGender=='Male'){
-                    document.getElementById("profileImage").src=male;
-        
+            else {
+                if (selectedGender == 'Male') {
+                    document.getElementById("profileImage").src = male;
+
                 }
-                if(selectedGender=='Female'){
-                    document.getElementById("profileImage").src=female;
+                if (selectedGender == 'Female') {
+                    document.getElementById("profileImage").src = female;
                 }
             }
         }
@@ -198,36 +200,36 @@ const navToProfile =  () => {
             reader.onload = function (e) {
                 const preview = document.getElementById('profileImage');
                 preview.src = e.target.result;
-                
+
             }
             reader.readAsDataURL(file);
 
         }
     });
-    document.getElementById('ProfileUpdateButton')?.addEventListener('click',async function() {
+    document.getElementById('ProfileUpdateButton')?.addEventListener('click', async function () {
         const form = document.getElementById('profileForm');
-        
+
         // Check if the form is valid
         if (form.checkValidity()) {
             // Gather form data
             const formData = new FormData(form);
-            
+
             // Example: Log data to console
-            const userInfo ={
-                userName:formData.get('name'),
-                profession:formData.get('profession'),
-                country:formData.get('country'),
-                city:formData.get('city'),
-                gender:formData.get('gender'),
-                image:document.getElementById('profileImage').src
+            const userInfo = {
+                userName: formData.get('name'),
+                profession: formData.get('profession'),
+                country: formData.get('country'),
+                city: formData.get('city'),
+                gender: formData.get('gender'),
+                image: document.getElementById('profileImage').src
             }
             console.log(userInfo);
-            user.userInfo=userInfo;
-            document.getElementById('profile').src=userInfo.image;
-            document.getElementById('profile').tooltip=userInfo.userName;
-            document.getElementById('profile').style.display='block';
-            
-            
+            user.userInfo = userInfo;
+            document.getElementById('profile').src = userInfo.image;
+            document.getElementById('profile').title = userInfo.userName;
+            document.getElementById('profile').style.display = 'block';
+
+
 
 
             // Submit form data to the server or perform other actions here
@@ -245,31 +247,33 @@ const navToProfile =  () => {
 
 const navToHome = () => {
     content.innerHTML = ` <div class="postboxContainer">
-        <div class="pstbx">
-            <textarea name="" id="postbox" placeholder="Share your Thought" >   
-            </textarea>
-            <img id="postbtn" style="cursor: pointer;" class="postbtn" src="https://i.ibb.co/BPm4ZKJ/image.png" />
-            
-        </div>
-        <div  class="addPhotos">
-            <div id="uploadArea" style="cursor: pointer; padding:30px; border-radius: 10px ;" class="addPhotos hoverEffect">
-                <img src="https://i.ibb.co/nQxHrgj/image.png"/>
-            <h2  class="abz">Add Photos</h2>
-                <input type="file" id="file-input" accept="image/*" style="display: none;" />
-            </div>
-            <div>
-                <svg id="deleteImgBtn" class="imgDeleteButton" style="display: none;"  xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 26 26"
-                style="fill:#FA5252;">
-                <path d="M 13 0.1875 C 5.925781 0.1875 0.1875 5.925781 0.1875 13 C 0.1875 20.074219 5.925781 25.8125 13 25.8125 C 20.074219 25.8125 25.8125 20.074219 25.8125 13 C 25.8125 5.925781 20.074219 0.1875 13 0.1875 Z M 18.78125 17.394531 L 17.390625 18.78125 C 17.136719 19.035156 16.722656 19.035156 16.46875 18.78125 L 13 15.3125 L 9.53125 18.78125 C 9.277344 19.035156 8.863281 19.035156 8.609375 18.777344 L 7.21875 17.394531 C 6.96875 17.136719 6.96875 16.726563 7.21875 16.46875 L 10.6875 13 L 7.222656 9.535156 C 6.96875 9.277344 6.96875 8.863281 7.222656 8.609375 L 8.609375 7.222656 C 8.863281 6.964844 9.28125 6.964844 9.535156 7.222656 L 13 10.6875 L 16.46875 7.222656 C 16.722656 6.964844 17.140625 6.964844 17.390625 7.222656 L 18.78125 8.605469 C 19.035156 8.863281 19.035156 9.277344 18.78125 9.535156 L 15.3125 13 L 18.78125 16.46875 C 19.03125 16.726563 19.03125 17.136719 18.78125 17.394531 Z"></path>
-                </svg>
-                <img id="preview" style="display: none;" />
-            </div>
-            
-        </div>
-        <div id="posts">
-        </div>
-            
-    </div>`;
+                            <div class="pstbx">
+                                <textarea name="" id="postbox" placeholder="Share your Thought" >   
+                                </textarea>
+                                <img id="postbtn" style="cursor: pointer;" class="postbtn" src="https://i.ibb.co/BPm4ZKJ/image.png" />
+                                
+                            </div>
+                            <div  class="addPhotos">
+                                <div id="uploadArea" style="cursor: pointer; padding:30px; border-radius: 10px ;" class="addPhotos hoverEffect">
+                                    <img src="https://i.ibb.co/nQxHrgj/image.png"/>
+                                <h2  class="abz">Add Photos</h2>
+                                    <input type="file" id="file-input" accept="image/*" style="display: none;" />
+                                </div>
+                                <div>
+                                    <svg id="deleteImgBtn" class="imgDeleteButton" style="display: none;"  xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 26 26"
+                                    style="fill:#FA5252;">
+                                    <path d="M 13 0.1875 C 5.925781 0.1875 0.1875 5.925781 0.1875 13 C 0.1875 20.074219 5.925781 25.8125 13 25.8125 C 20.074219 25.8125 25.8125 20.074219 25.8125 13 C 25.8125 5.925781 20.074219 0.1875 13 0.1875 Z M 18.78125 17.394531 L 17.390625 18.78125 C 17.136719 19.035156 16.722656 19.035156 16.46875 18.78125 L 13 15.3125 L 9.53125 18.78125 C 9.277344 19.035156 8.863281 19.035156 8.609375 18.777344 L 7.21875 17.394531 C 6.96875 17.136719 6.96875 16.726563 7.21875 16.46875 L 10.6875 13 L 7.222656 9.535156 C 6.96875 9.277344 6.96875 8.863281 7.222656 8.609375 L 8.609375 7.222656 C 8.863281 6.964844 9.28125 6.964844 9.535156 7.222656 L 13 10.6875 L 16.46875 7.222656 C 16.722656 6.964844 17.140625 6.964844 17.390625 7.222656 L 18.78125 8.605469 C 19.035156 8.863281 19.035156 9.277344 18.78125 9.535156 L 15.3125 13 L 18.78125 16.46875 C 19.03125 16.726563 19.03125 17.136719 18.78125 17.394531 Z"></path>
+                                    </svg>
+                                    <img id="preview" style="display: none;" />
+                                </div>
+                                
+                            </div>
+                            
+                                
+                            </div>
+                            <div id="posts">
+                        </div>
+    `;
     document.getElementById('postbox').value = null;
     loginButton.style.display = 'none';
     logoutButton.style.display = 'block';
@@ -309,15 +313,144 @@ const navToHome = () => {
     });
     const post = () => {
         const postText = document.getElementById('postbox').value;
-        console.log(postText, image);
+        const post = {
+            id: posts.length + 1,
+            postContent: {
+                postText,
+                image,
+                likes:[],
+                date:getFormattedDate()
+            },
+            user
+
+        }
+        posts.push(post);
+        renderPosts();
+
+
 
     }
     document.getElementById('postbtn').addEventListener('click', post);
     document.getElementById('home').style.borderBottom = '2px solid black'
     document.getElementById('profile').style.border = 'none'
+    renderPosts();
 
 
 }
+const renderPosts = () => {
+    const postContainer = document.getElementById('posts');
+    postContainer.innerHTML=``;
+    if (posts.length != 0) {
+        posts.forEach(
+            element => {
+                
+                const post = document.createElement('div');
+                post.innerHTML = `
+                <div id="${element.id}" class="postTextContainer">
+                    <div class="posterInfo">
+                        <div class="image-container">
+                            <img src="${element.user.userInfo.image}"
+                                alt="Circular Image">
+                        </div>
+                        <div>
+                            <h2 class="abz" style="margin:0 0 10px;font-size: 30px;">${element.user.userInfo.userName}</h2>
+                            <p class="inter" style="margin: 0;">${element.postContent.date}</p>
+                        </div>
+                    </div>
+                    <p class="inter f-24" >${element.postContent.postText}</p>
+                    <div class="likeCommentButtonContainer">
+                        <div class="likeContainer">
+                            <img onclick="like(${element.id})" style="cursor: pointer;" src="https://i.ibb.co/Nxvpj8T/image.png" alt="">
+                            <p class="inter">${element.postContent.likes.length}</p>
+                        </div>
+                        <div class="commentContainer">
+                            <img src="https://i.ibb.co/7J44Rzn/image.png" alt="">
+                            <p class="inter"></p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="postImgContainer">
+                    <h2 onclick="menuToggle(event,${element.id})" class="f-48" style="margin: 0 0 10px 0; cursor:pointer;">...</h2>
+                    <div id="${"menu"+element.id}" class="menu abz">
+                        <h2 style="margin: 0;">Edit</h2>
+                        <hr>
+                        <h2 onclick="deletePost(${element.id})" style="margin: 10px 0 0;cursor:pointer;">Delete</h2>
+                    </div>
+                    <img src="${element.postContent.image}" alt="">
+
+                </div>
+                `
+                post.classList.add('postContainer');
+                postContainer.appendChild(post);
+                
+            }
+        )
+    }
+
+
+}
+function getFormattedDate() {
+    const date = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+const deletePost =(id)=>{
+    console.log(id);
+    posts.forEach(element => {
+        if(element.id==id){
+            if(element.user.email==user.email){
+                posts= posts.filter(item=>item.id!=id);
+                renderPosts();
+            }
+            else{
+                alert("You cannot delete someone elses post");
+            }
+        }
+        
+    });
+
+}
+const like =(id)=>{
+    posts.forEach(
+        element=>{
+            if(element.id==id){
+                if(element.postContent.likes.length==0){
+                    const like ={
+                        email:user.email,
+                        likeSatus:"disabled"
+                    }
+                    element.postContent.likes.push(like);
+                    
+                }
+                else{
+                    let userCanLike =true; 
+                    element.postContent.likes.forEach(e=>{
+                        console.log(e,user.email);
+                        if(e.email==user.email){
+                            element.postContent.likes=element.postContent.likes.filter(item=>item.email!=user.email);
+                            userCanLike=false;
+                            return;
+                        }
+                    })
+                    if(userCanLike){
+                        const like ={
+                            email:user.email,
+                            likeSatus:"disabled"
+                        }
+                        element.postContent.likes.push(like);
+                    }
+                }
+
+                
+            }
+            console.log(element.postContent.likes)
+        }
+    )
+    renderPosts();
+    console.log(id);
+}
+
 
 const userLogin = () => {
     const email = document.getElementById("loginEmail").value;
@@ -371,6 +504,16 @@ const logout = () => {
 }
 signupButton.addEventListener('click', navToRegistration);
 logoutButton.addEventListener('click', logout);
+function menuToggle(event,id) {
+    const menuId ="menu"+id;
+    event.stopPropagation(); // Prevent the event from bubbling up
+    var menu = document.getElementById(menuId);
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+    } else {
+        menu.style.display = 'block';
+    }
+}
 
 renderContent();
 
