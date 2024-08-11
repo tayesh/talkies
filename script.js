@@ -1,15 +1,17 @@
+import { userLogin,navToLogin } from './login.js';
+import {navToRegistration} from './registration.js'
 // initialize the user as null
-let user = null;
+window.user = null;
 // initialize userList as an empty array fro storing all the users temorarily.this will be removed when the site is connected to backend
-const userList = [];
+window.userList = [];
 // initialize posts as an empty array to store all the posts.
 let posts = [];
 // taking reference of login button, logout button, name in navbar, content div and signup button
-const loginButton = document.getElementById("navlogin");
-const logoutButton = document.getElementById("logout");
-const Name = document.getElementById('name');
-const content = document.getElementById("content");
-const signupButton = document.getElementById('signup');
+window.loginButton = document.getElementById("navlogin");
+window.logoutButton = document.getElementById("logout");
+window.Name = document.getElementById('name');
+window.content = document.getElementById("content");
+window.signupButton = document.getElementById('signup');
 
 //adding event listener for the name at the navbar
 Name.addEventListener('click', function () {
@@ -33,7 +35,7 @@ Name.addEventListener('click', function () {
 
 
 // this function works as a main function in this code..it decides what it is going to be inside the content div
-const renderContent = () => {
+window.renderContent = () => {
 
     if (user) {
         // if user is available showing the home button, and profile button on navbar and hiding the static page to show the 
@@ -57,7 +59,7 @@ const renderContent = () => {
         }
     }
     else {
-           // If no user is logged in, hide the home and profile options, show the static page
+        // If no user is logged in, hide the home and profile options, show the static page
         document.getElementById('home').style.display = 'none'
         document.getElementById('profile').style.display = 'none'
 
@@ -68,80 +70,19 @@ const renderContent = () => {
         else {
             document.getElementById("staticpage").style.display = 'block';
             content.style.display = 'none';
-            
+
         }
 
     }
 }
 
 
-// ------------------------------------Functionalities of Login page -------------------------------------
 
-// Function to navigate to the login page
-const navToLogin = () => {
-    // Hide the static page and display the login content
-    document.getElementById("staticpage").style.display = 'none';
-    content.style.display = 'block';
-    // Set the HTML content for the login form
-    content.innerHTML = `
-            <div class="login">
-            <h2 class="text-center f-64 abz form-heading">Welcome to <span class="jua">Talkies</span></h2>
-            <h3 class="text-center f-48 abz form-heading">Lets have some talks</h3>
-            <div class="form">
-                <input id="loginEmail" class="input_box" type="text" name="email" id="" placeholder="email@gmail.com"/>
-                    <input id="loginPass" class="input_box" type="text" name="email" id="" placeholder="password"/>
-                    <p id="LoginError" class="error" style="display: none;">Invalid Credentials</p>
-                        <h2 id="login" class="button">Login</h2>
-                    </div>
-                    <p class="text-center abz f-24">Not a member ? <span id="navToRegBtn" class="text-primary">Register </span> to join us</p>
-            </div>`;
-    // Show the login button and hide the logout button
-    loginButton.style.display = 'block';
-    logoutButton.style.display = 'none';
-     // Add event listener for navigation to the registration page
-    const navToRegBtn = document.getElementById("navToRegBtn");
-    navToRegBtn.addEventListener('click', navToRegistration);
-    // Add event listener for the login action
-    const login = document.getElementById("login");
-    login.addEventListener('click', userLogin);
-}
-// Event listener to navigate to the login page when the login button is clicked
 loginButton.addEventListener('click', navToLogin);
 
 
 
-// -------------------------------------------Functionalities of Registraion page----------------------------------------------
 
-
-// Function to navigate to the registration page
-const navToRegistration = () => {
-    // Hide the static page and display the registration content
-    document.getElementById("staticpage").style.display = 'none';
-    content.style.display = 'block';
-    // Set the HTML content for the registration form
-    content.innerHTML = `
-            <div class="login">
-            <h2 class="text-center f-64 abz form-heading">Welcome to <span class="jua">Talkies</span></h2>
-            <h3 class="text-center f-48 abz form-heading">Lets have some talks</h3>
-            <form class="form">
-                <input id="regEmail" class="input_box" type="text" name="email" id="" placeholder="email@gmail.com"/>
-                    <input id="regPass" class="input_box" type="text" name="email" id="" placeholder="password" required/>
-                    <input id="regConfPass" class="input_box" type="text" name="email" id="" placeholder="confirm password"/>
-                    <p id="passMatchError" class="error" style="display: none;">please confirm the password correctly</p>
-                        <h2 id="registration" class="button">Registration</h2>
-                    </div>
-                    <p class="text-center abz f-24">Already a member ? <span id="navToLoginBtn1" class="text-primary">Login </span></p>
-            </form>`;
-    // Show the login button and hide the logout button
-    loginButton.style.display = 'block';
-    logoutButton.style.display = 'none';
-    // Add event listener for navigation to the login page
-    const navToLoginBtn1 = document.getElementById("navToLoginBtn1");
-    navToLoginBtn1.addEventListener('click', navToLogin);
-    // Add event listener for the registration action
-    const registration = document.getElementById("registration");
-    registration.addEventListener('click', userReg);
-}
 
 
 
@@ -210,7 +151,7 @@ const navToProfile = () => {
     loginButton.style.display = 'none';
     logoutButton.style.display = 'block';
 
-     // Add an event listener for the gender selection dropdown
+    // Add an event listener for the gender selection dropdown
     document.getElementById('gender')?.addEventListener('change', function () {
         const selectedGender = this.options[this.selectedIndex].text;
         const profilePicture = document.getElementById("profileImage").src;
@@ -309,13 +250,13 @@ const navToHome = () => {
     // setting the html for homepage
     content.innerHTML = ` <div class="postboxContainer">
                             <div class="pstbx">
-                                <textarea name="" id="postbox" placeholder="Share your Thought" >   
-                                </textarea>
-                                <img id="postbtn" style="cursor: pointer;" class="postbtn" src="https://i.ibb.co/BPm4ZKJ/image.png" />
+                                <input id="title" class="input_box" style="display:block;margin-bottom:30px;width:100%" type="text" name="email" id="" placeholder="Title"/>
+                                    <textarea name="" id="postbox" placeholder="Share your Thought" ></textarea>
+                                    <img id="postbtn" style="cursor: pointer;" class="postbtn" src="https://i.ibb.co/BPm4ZKJ/image.png" />
                                 
                             </div>
                             <div  class="addPhotos">
-                                <div id="uploadArea" style="cursor: pointer; padding:30px; border-radius: 10px ;" class="addPhotos hoverEffect">
+                                <div id="uploadArea" style="cursor: pointer; padding:30px; border:4px solid #D9D9D9; border-radius: 10px;" class="addPhotos hoverEffect">
                                     <img src="https://i.ibb.co/nQxHrgj/image.png"/>
                                     <h2  class="abz">Add Photos</h2>
                                         <input type="file" id="file-input" accept="image/*" style="display: none;" />
@@ -377,19 +318,28 @@ const navToHome = () => {
     });
     // function to collect data from post box and add a object containing post contents to the "posts" array
     const post = () => {
+        const title=document.getElementById("title");
+        if(title.value==""){
+            alert("please insert a title");
+            return;
+        }
         const postText = document.getElementById('postbox').value;
         const post = {
             id: posts.length + 1,
             postContent: {
+                title:title.value,
                 postText,
                 image,
-                likes:[],
-                date:getFormattedDate()
+                likes: [],
+                comments:[],
+                date: getFormattedDate()
             },
             user
 
         }
         posts.push(post);
+        document.getElementById("title").value="";
+        document.getElementById('postbox').value="";
         // function to render posts
         renderPosts();
 
@@ -398,7 +348,7 @@ const navToHome = () => {
     }
     // adding event listener for post button
     document.getElementById('postbtn').addEventListener('click', post);
-    
+
     document.getElementById('home').style.borderBottom = '2px solid black'
     document.getElementById('profile').style.border = 'none'
     // initial render of posts
@@ -409,15 +359,16 @@ const navToHome = () => {
 
 // function to render posts
 const renderPosts = () => {
-    
+
     const postContainer = document.getElementById('posts');
     // initially making the post container empty
-    postContainer.innerHTML=``;
+    postContainer.innerHTML = ``;
 
     if (posts.length != 0) {
         // loop to show all the posts
         posts.forEach(
             element => {
+
                 // creating a div to contain the post content
                 const post = document.createElement('div');
                 // setting the html layout
@@ -433,14 +384,26 @@ const renderPosts = () => {
                             <p class="inter" style="margin: 0;">${element.postContent.date}</p>
                         </div>
                     </div>
-                    <p class="inter f-24" >${element.postContent.postText}</p>
+                    <div>
+                    <div>
+                        <p class="inter" style="margin:10px 0 10px;font-size: 30px; font-weight: 700;" >${element.postContent.title}</p>
+                        <p id=${"postText" + element.id} class="inter f-24" style="color:#656565" >${element.postContent.postText}</p>
+                    </div>
+                    <div id=${"postEditBoxContainer" + element.id} style="position:relative; width:75%; display:none;">
+                        <textarea  name="" id=${"postEditBox" + element.id} class="postEditbox"  >   
+                        </textarea>
+                        <img onclick="saveUpdate(${element.id})" style="cursor: pointer;" class="postbtn1" src="https://i.ibb.co/BPm4ZKJ/image.png" />
+                        <p onclick=cancel(${element.id}) class="inter cancelbutton" >Cancel</p>
+                        
+                    </div>
+                    </div>
                     <div class="likeCommentButtonContainer">
                         <div class="likeContainer">
                             <img onclick="like(${element.id})" style="cursor: pointer;" src="https://i.ibb.co/Nxvpj8T/image.png" alt="">
                             <p class="inter">${element.postContent.likes.length}</p>
                         </div>
                         <div class="commentContainer">
-                            <img src="https://i.ibb.co/7J44Rzn/image.png" alt="">
+                            <img onclick="openModal(${element.id})" src="https://i.ibb.co/7J44Rzn/image.png" alt="">
                             <p class="inter"></p>
                         </div>
                     </div>
@@ -448,8 +411,8 @@ const renderPosts = () => {
                 </div>
                 <div class="postImgContainer">
                     <h2 onclick="menuToggle(event,${element.id})" class="f-48" style="margin: 0 0 10px 0; cursor:pointer;">...</h2>
-                    <div id="${"menu"+element.id}" class="menu abz">
-                        <h2 style="margin: 0;">Edit</h2>
+                    <div id="${"menu" + element.id}" class="menu abz">
+                        <h2 onclick="editPost(${element.id})" style="margin: 0;">Edit</h2>
                         <hr>
                         <h2 onclick="deletePost(${element.id})" style="margin: 10px 0 0;cursor:pointer;">Delete</h2>
                     </div>
@@ -457,10 +420,13 @@ const renderPosts = () => {
 
                 </div>
                 `;
+
                 post.classList.add('postContainer');
                 // putting the post inside the post cotainer
                 postContainer.appendChild(post);
-                
+                const textArea = document.getElementById("postEditBox" + element.id);
+                textArea.value = element.postContent.postText;
+
             }
         )
     }
@@ -473,71 +439,121 @@ function getFormattedDate() {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 }
+
+window.editPost = (id) => {
+    posts.forEach(element => {
+        // finding the post we want by comparing id
+        if (element.id == id) {
+            // checking the if the authors email and the user email are same
+            if (element.user.email == user.email) {
+                const postText = document.getElementById("postText" + id);
+                const postEditBoxContainer = document.getElementById("postEditBoxContainer" + id);
+                postText.style.display = "none";
+                postEditBoxContainer.style.display = "block"
+            }
+            else {
+                // if not then show alert
+                alert("You cannot edit someone elses post");
+            }
+        }
+
+    });
+
+}
+window.saveUpdate = (id) => {
+    const newPostText = document.getElementById("postEditBox" + id).value;
+    const postText = document.getElementById("postText" + id);
+    posts.forEach(element => {
+        if (element.id == id) {
+            element.postContent.postText = newPostText;
+            postText.innerText = newPostText;
+        }
+
+    });
+    const postEditBoxContainer = document.getElementById("postEditBoxContainer" + id);
+    postText.style.display = "block";
+    postEditBoxContainer.style.display = "none"
+
+
+
+
+}
+window.cancel = (id) => {
+    const postText = document.getElementById("postText" + id);
+    const postEditBoxContainer = document.getElementById("postEditBoxContainer" + id);
+    postText.style.display = "block";
+    postEditBoxContainer.style.display = "none"
+
+}
+
+
+
+
 // this function is to delete a post following the id of that post
-const deletePost =(id)=>{
+window.deletePost = (id) => {
 
     console.log(id);
     // loop to go through the array of posts to find the post we want to delete
     posts.forEach(element => {
         // finding the post we want by comparing id
-        if(element.id==id){
+        if (element.id == id) {
             // checking the if the authors email and the user email are same
-            if(element.user.email==user.email){
+            if (element.user.email == user.email) {
                 // if same then delete the post by filter function
-                posts= posts.filter(item=>item.id!=id);
+                posts = posts.filter(item => item.id != id);
                 // and render the posts again
                 renderPosts();
             }
-            else{
+            else {
                 // if not then show alert
                 alert("You cannot delete someone elses post");
             }
         }
-        
+
     });
 
 }
 // function to manage the work of like button 
-const like =(id)=>{
+window.like = (id) => {
     // loop to find the desired post
     posts.forEach(
-        element=>{
+        element => {
             // matching the id
-            if(element.id==id){
+            if (element.id == id) {
                 // if theres no like the we simply just increase the likes by one
-                if(element.postContent.likes.length==0){
+                if (element.postContent.likes.length == 0) {
                     // we store the users email for future verification
-                    const like ={
-                        email:user.email,
-                        likeSatus:"disabled"
+                    const like = {
+                        email: user.email,
+                        likeSatus: "disabled"
                     }
                     element.postContent.likes.push(like);
-                    
+
                 }
 
-                else{
+                else {
                     // else we verify if the user has liked this post before 
-                    let userCanLike =true; 
-                    element.postContent.likes.forEach(e=>{
-                        console.log(e,user.email);
-                        if(e.email==user.email){
+                    let userCanLike = true;
+                    element.postContent.likes.forEach(e => {
+                        console.log(e, user.email);
+                        if (e.email == user.email) {
                             // if true then we decrease the likes by one
-                            element.postContent.likes=element.postContent.likes.filter(item=>item.email!=user.email);
-                            userCanLike=false;
+                            element.postContent.likes = element.postContent.likes.filter(item => item.email != user.email);
+                            userCanLike = false;
                             return;
                         }
                     })
-                    if(userCanLike){
+                    if (userCanLike) {
                         // if the user hasnt liked the post before we increase the likes by one
-                        const like ={
-                            email:user.email,
-                            likeSatus:"disabled"
+                        const like = {
+                            email: user.email,
+                            likeSatus: "disabled"
                         }
                         element.postContent.likes.push(like);
                     }
                 }
 
-                
+
             }
             console.log(element.postContent.likes)
         }
@@ -547,54 +563,86 @@ const like =(id)=>{
     console.log(id);
 }
 
-// function to handle login
-const userLogin = () => {
-    const email = document.getElementById("loginEmail").value;
-    const pass = document.getElementById("loginPass").value;
-    let credentials = null;
-    userList.forEach(element => {
-        if (element.email == email && element.pass == pass) {
-            credentials = true;
-            user = element;
-            console.log(user);
-            renderContent();
-        }
+// Get modal elements
+const modal = document.getElementById("commentModal");
+const closeModalButton = document.getElementsByClassName("close")[0];
+const postCommentButton = document.getElementById("postCommentButton");
+const commentBox = document.getElementById("commentBox");
+const commentSection = document.getElementById("commentSection");
 
+// Open modal
+window.openModal=(id)=> {
+    modal.style.display = "block";
+    postCommentButton.onclick=()=>postComment(id);
+    showComments(id);
+
+};
+
+// Close modal
+closeModalButton.onclick = function() {
+    modal.style.display = "none";
+
+};
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+};
+window.showComments=(id)=>{ 
+    posts.forEach(element => {
+        if(element.id==id){
+            element.postContent.comments.forEach(element1=>{
+                const comment = document.createElement('div');
+                comment.innerHTML=`
+                <div class="posterInfo">
+                    <div class="image-container">
+                        <img src="${element1.author.image}"
+                            alt="Circular Image">
+                    </div>
+                    <div>
+                        <h2 class="abz" style="margin:0 0 10px;font-size: 30px;">${element1.author.name}</h2>
+                        <p class="inter" style="margin: 0;">${element1.date}</p>
+                    </div>
+                </div>
+                <p>${element1.content}</p>
+                
+                `;
+                commentSection.appendChild(comment);
+            })
+        }
+        
     });
-    if (!credentials) {
-        const loginError = document.getElementById("LoginError");
-        loginError.style.display = 'block';
 
-    }
-
-
-
-    console.log("clicked", email, pass);
 }
-// function to handle  registration
-const userReg = () => {
-    const email = document.getElementById("regEmail").value;
-    const pass = document.getElementById("regPass").value;
-    const confPass = document.getElementById("regConfPass").value;
-    const error = document.getElementById("passMatchError");
-    if (pass != confPass) {
 
-        error.style.display = "block"
-    }
-    else {
-        error.style.display = "none";
-        const user = {
-            email,
-            pass
+// Post a comment
+const postComment=(id)=> {
+    console.log(id);
+    const commentText = commentBox.value.trim();
+    if (commentText) {
+        const comment ={
+            author:{
+                image:user.userInfo.image,
+                name:user.userInfo.userName,
+            },
+            date:getFormattedDate(),
+            content:commentText
+
         }
-        userList.push(user);
-        alert("successfully registered. please login");
-        navToLogin();
-
+        posts.forEach(element=>{
+            if(element.id==id){
+                element.postContent.comments.push(comment);
+            }
+        })
+        showComments(id);
+        console.log(comment);
+    } else {
+        alert("Please enter a comment.");
     }
-    console.log(email, pass, confPass);
-}
-// function to handle logout
+};
+
 const logout = () => {
     user = null;
     renderContent();
@@ -604,8 +652,8 @@ const logout = () => {
 signupButton.addEventListener('click', navToRegistration);
 logoutButton.addEventListener('click', logout);
 // function to edit/delete toggle menu on posts 
-function menuToggle(event,id) {
-    const menuId ="menu"+id;
+function menuToggle(event, id) {
+    const menuId = "menu" + id;
     event.stopPropagation(); // Prevent the event from bubbling up
     var menu = document.getElementById(menuId);
     if (menu.style.display === 'block') {
