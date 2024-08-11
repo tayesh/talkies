@@ -48,4 +48,4 @@ export const userReg = () => {
 
     }
     console.log(email, pass, confPass);
-}`  `       ``  `   !1111111111111111`
+}
