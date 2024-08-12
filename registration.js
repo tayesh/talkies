@@ -1,4 +1,4 @@
-import { userLogin,navToLogin } from './login.js';
+import { userLogin, navToLogin } from './login.js';
 export const navToRegistration = () => {
     // Hide the static page and display the registration content
     document.getElementById("staticpage").style.display = 'none';
@@ -42,9 +42,27 @@ export const userReg = () => {
             email,
             pass
         }
-        userList.push(user);
-        alert("successfully registered. please login");
-        navToLogin();
+        fetch('http://localhost:5000/user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    error.style.display = "none";
+                    alert("successfully registered. please login");
+                    navToLogin();
+                }
+                if(data.error){
+                    error.style.display = "block";
+                    error.innerText=data.error;
+                }
+            })
+
+
 
     }
     console.log(email, pass, confPass);

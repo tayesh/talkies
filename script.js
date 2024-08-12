@@ -26,6 +26,8 @@ Name.addEventListener('click', function () {
         document.getElementById("staticpage").style.display = 'block';
         content.style.display = 'none';
 
+
+
     }
 
 })
@@ -52,6 +54,7 @@ window.renderContent = () => {
             navToHome();
         }
         else {
+            console.log(user);
             /*if user does not have a username that means the user is new and hasnt updated his profile information
                 so we navigate user to the profile page
             */
@@ -70,6 +73,8 @@ window.renderContent = () => {
         else {
             document.getElementById("staticpage").style.display = 'block';
             content.style.display = 'none';
+            loginButton.style.display = "block";
+            logoutButton.style.display = "none";
 
         }
 
@@ -188,12 +193,55 @@ const navToProfile = () => {
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
-                const preview = document.getElementById('profileImage');
-                preview.src = e.target.result;
-
-            }
+                const img = new Image();
+                img.src = e.target.result;
+    
+                img.onload = function () {
+                    // Create a canvas element
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+    
+                    // Set the desired output dimensions
+                    const maxWidth = 350; // Maximum width in pixels
+                    const maxHeight = 350; // Maximum height in pixels
+    
+                    let width = img.width;
+                    let height = img.height;
+    
+                    // Calculate the new dimensions while maintaining aspect ratio
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height *= maxWidth / width;
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width *= maxHeight / height;
+                            height = maxHeight;
+                        }
+                    }
+    
+                    canvas.width = width;
+                    canvas.height = height;
+    
+                    // Draw the image on the canvas
+                    ctx.drawImage(img, 0, 0, width, height);
+    
+                    // Convert the canvas to a Blob or Data URL (adjust quality for compression)
+                    canvas.toBlob(
+                        (blob) => {
+                            // Set the preview to show the compressed image
+                            const preview = document.getElementById('profileImage');
+                            preview.src = URL.createObjectURL(blob); // Set src to the compressed image blob
+    
+                            // Example of uploading the blob to the server
+                        },
+                        'image/jpeg', // Output format
+                        0.7 // Quality (0 to 1) - 1 means original quality, lower means more compression
+                    );
+                };
+            };
             reader.readAsDataURL(file);
-
         }
     });
     // adding event listener for the update button
@@ -215,10 +263,26 @@ const navToProfile = () => {
                 image: document.getElementById('profileImage').src
             }
             console.log(userInfo);
-            user.userInfo = userInfo;
-            document.getElementById('profile').src = userInfo.image;
-            document.getElementById('profile').title = userInfo.userName;
-            document.getElementById('profile').style.display = 'block';
+            fetch('http://localhost:5000/user', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({email:user.email,userInfo}),
+            })
+                .then(res => res.json())
+                .then(data => {
+                    user.userInfo = userInfo;
+                    document.getElementById('profile').src = userInfo.image;
+                    document.getElementById('profile').title = userInfo.userName;
+                    document.getElementById('profile').style.display = 'block';
+                    alert('Profile updated successfully!');
+                    renderContent();
+                })
+            // user.userInfo = userInfo;
+            // document.getElementById('profile').src = userInfo.image;
+            // document.getElementById('profile').title = userInfo.userName;
+            // document.getElementById('profile').style.display = 'block';
 
 
 
@@ -227,8 +291,7 @@ const navToProfile = () => {
             // e.g., AJAX request, fetch API, etc.
 
             // Example: Alert the user
-            alert('Profile updated successfully!');
-            await renderContent();
+
         } else {
             alert('Please fill out all required fields.');
         }
@@ -334,14 +397,30 @@ const navToHome = () => {
                 comments: [],
                 date: getFormattedDate()
             },
-            user
+            userInfo: {
+                Name: user.userInfo.userName,
+                email:user.email
+            }
 
         }
-        posts.push(post);
-        document.getElementById("title").value = "";
-        document.getElementById('postbox').value = "";
+        fetch('http://localhost:5000/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(post)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    posts.push(post);
+                    document.getElementById("title").value = "";
+                    document.getElementById('postbox').value = "";
+                    renderPosts();
+                }
+            })
         // function to render posts
-        renderPosts();
+
 
 
 
@@ -358,13 +437,19 @@ const navToHome = () => {
 }
 
 // function to render posts
-const renderPosts = () => {
-
+const renderPosts = async() => {
+    await fetch(`http://localhost:5000/posts`)
+    .then(res=>res.json())
+    .then(data=>{
+        posts=data;
+        console.log(data);
+        console.log(posts);
+    })
     const postContainer = document.getElementById('posts');
     // initially making the post container empty
     postContainer.innerHTML = ``;
 
-    if (posts.length != 0) {
+    if (posts.length > 0) {
         // loop to show all the posts
         posts.forEach(
             element => {
@@ -376,11 +461,11 @@ const renderPosts = () => {
                 <div id="${element.id}" class="postTextContainer">
                     <div class="posterInfo">
                         <div class="image-container">
-                            <img src="${element.user.userInfo.image}"
+                            <img src="${element.userInfo?.image}"
                                 alt="Circular Image">
                         </div>
                         <div>
-                            <h2 class="abz" style="margin:0 0 10px;font-size: 30px;">${element.user.userInfo.userName}</h2>
+                            <h2 class="abz" style="margin:0 0 10px;font-size: 30px;">${element.userInfo.userName}</h2>
                             <p class="inter" style="margin: 0;">${element.postContent.date}</p>
                         </div>
                     </div>
@@ -498,11 +583,20 @@ window.deletePost = (id) => {
         // finding the post we want by comparing id
         if (element.id == id) {
             // checking the if the authors email and the user email are same
-            if (element.user.email == user.email) {
+            if (element.userInfo.email == user.email) {
                 // if same then delete the post by filter function
-                posts = posts.filter(item => item.id != id);
+                
+                fetch(`http://localhost:5000/posts/${element._id}`, {
+                    method: 'DELETE',
+                  })
+                  .then(res=>res.json())
+                  .then(data=>{
+                    console.log(data);
+                    renderPosts();
+                  })
+                
                 // and render the posts again
-                renderPosts();
+                
             }
             else {
                 // if not then show alert
@@ -724,15 +818,15 @@ window.savecommentUpdate = (postId, commentId) => {
     const commentText = document.getElementById("commentText" + commentId);
     posts.forEach(element => {
         if (element.id == postId) {
-            element.postContent.comments.forEach(element1=>{
-                if(element1.id==commentId){
-                    if(element1.author.email==user.email){
-                        element1.content=newComment;
-                        commentText.innerText=newComment;
+            element.postContent.comments.forEach(element1 => {
+                if (element1.id == commentId) {
+                    if (element1.author.email == user.email) {
+                        element1.content = newComment;
+                        commentText.innerText = newComment;
                     }
                 }
             })
-           
+
         }
 
     });

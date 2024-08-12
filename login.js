@@ -13,7 +13,7 @@ export const navToLogin = () => {
             <div class="form">
                 <input id="loginEmail" class="input_box" type="text" name="email" id="" placeholder="email@gmail.com"/>
                     <input id="loginPass" class="input_box" type="text" name="email" id="" placeholder="password"/>
-                    <p id="LoginError" class="error" style="display: none;">Invalid Credentials</p>
+                    <p id="LoginError" class="error" style="display: none;"></p>
                         <h2 id="login" class="button">Login</h2>
                     </div>
                     <p class="text-center abz f-24">Not a member ? <span id="navToRegBtn" class="text-primary">Register </span> to join us</p>
@@ -31,23 +31,47 @@ export const navToLogin = () => {
 
 
 export const userLogin = () => {
-    const email = document.getElementById("loginEmail").value;
+    const email = document.getElementById("loginEmail").value.trim();
     const pass = document.getElementById("loginPass").value;
+    const loginError = document.getElementById("LoginError");
     let credentials = null;
-    userList.forEach(element => {
-        if (element.email == email && element.pass == pass) {
+    // userList.forEach(element => {
+    //     if (element.email == email && element.pass == pass) {
+    //         credentials = true;
+    //         user = element;
+    //         console.log(user);
+    //         renderContent();
+    //     }
+
+    // });
+    // if (!credentials) {
+    //     const loginError = document.getElementById("LoginError");
+    //     loginError.style.display = 'block';
+
+    // }
+    fetch(`http://localhost:5000/user?email=${email}`)
+    .then(res=>res.json())
+    .then(data=>{
+        if(data.pass==pass){
             credentials = true;
-            user = element;
+            user = data;
             console.log(user);
+            loginError.style.display = 'none';
             renderContent();
+
         }
+        else{
+            loginError.style.display = 'block';
+            loginError.innerText="invalid Credentials";
 
-    });
-    if (!credentials) {
-        const loginError = document.getElementById("LoginError");
-        loginError.style.display = 'block';
+        }
+        if(data.error){
+            
+            loginError.style.display = 'block';
+            loginError.innerText=data.error;
 
-    }
+        }
+    })
 
 
 
