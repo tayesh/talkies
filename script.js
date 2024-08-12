@@ -574,7 +574,7 @@ window.cancel = (id) => {
 
 
 
-// this function is to delete a post following the id of that post
+// this function is to delete a post following the id of that post hello
 window.deletePost = (id) => {
 
     console.log(id);
