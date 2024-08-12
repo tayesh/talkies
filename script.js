@@ -1,5 +1,5 @@
-import { userLogin,navToLogin } from './login.js';
-import {navToRegistration} from './registration.js'
+import { userLogin, navToLogin } from './login.js';
+import { navToRegistration } from './registration.js'
 // initialize the user as null
 window.user = null;
 // initialize userList as an empty array fro storing all the users temorarily.this will be removed when the site is connected to backend
@@ -318,8 +318,8 @@ const navToHome = () => {
     });
     // function to collect data from post box and add a object containing post contents to the "posts" array
     const post = () => {
-        const title=document.getElementById("title");
-        if(title.value==""){
+        const title = document.getElementById("title");
+        if (title.value == "") {
             alert("please insert a title");
             return;
         }
@@ -327,19 +327,19 @@ const navToHome = () => {
         const post = {
             id: posts.length + 1,
             postContent: {
-                title:title.value,
+                title: title.value,
                 postText,
                 image,
                 likes: [],
-                comments:[],
+                comments: [],
                 date: getFormattedDate()
             },
             user
 
         }
         posts.push(post);
-        document.getElementById("title").value="";
-        document.getElementById('postbox').value="";
+        document.getElementById("title").value = "";
+        document.getElementById('postbox').value = "";
         // function to render posts
         renderPosts();
 
@@ -571,32 +571,34 @@ const commentBox = document.getElementById("commentBox");
 const commentSection = document.getElementById("commentSection");
 
 // Open modal
-window.openModal=(id)=> {
+window.openModal = (id) => {
     modal.style.display = "block";
-    postCommentButton.onclick=()=>postComment(id);
+    postCommentButton.onclick = () => postComment(id);
     showComments(id);
 
 };
 
 // Close modal
-closeModalButton.onclick = function() {
+closeModalButton.onclick = function () {
     modal.style.display = "none";
 
 };
 
 // Close modal when clicking outside of it
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
 };
-window.showComments=(id)=>{ 
+window.showComments = (id) => {
+    commentSection.innerHTML = ``;
     posts.forEach(element => {
-        if(element.id==id){
-            element.postContent.comments.forEach(element1=>{
+        if (element.id == id) {
+            element.postContent.comments.forEach(element1 => {
                 const comment = document.createElement('div');
-                comment.innerHTML=`
-                <div class="posterInfo">
+                comment.innerHTML = `
+                <div style="width:75%">
+                    <div class="posterInfo">
                     <div class="image-container">
                         <img src="${element1.author.image}"
                             alt="Circular Image">
@@ -605,34 +607,60 @@ window.showComments=(id)=>{
                         <h2 class="abz" style="margin:0 0 10px;font-size: 30px;">${element1.author.name}</h2>
                         <p class="inter" style="margin: 0;">${element1.date}</p>
                     </div>
+                    </div>
+                    <p id="${"commentText" + element1.id}">${element1.content}</p>
+                    <div id=${"commentEditBoxContainer" + element1.id} style="position:relative; width:75%; display:none;">
+                        <textarea  name="" id=${"EditcommentBox" + element.id} class="postEditbox" style="height:100px" >   
+                        </textarea>
+                        <img onclick="savecommentUpdate(${id},${element1.id})" style="cursor: pointer;" class="postbtn1" src="https://i.ibb.co/BPm4ZKJ/image.png" />
+                        <p onclick=cancelComment(${element1.id}) class="inter cancelbutton" >Cancel</p>
+                        
+                    </div>
                 </div>
-                <p>${element1.content}</p>
+                <h2 onclick="commentMenuToggle(event,${element1.id})" class="f-48" style="margin: 0 0 10px 0; cursor:pointer;">...</h2>
+                <div id="${"commentMenu" + element1.id}" class="commentMenu abz" >
+                    <h2 onclick="editComment(${id},${element1.id})" style="margin: 0;cursor:pointer;">Edit</h2>
+                    <hr>
+                    <h2 onclick="deleteComment(${id},${element1.id})" style="margin: 10px 0 0;cursor:pointer;">Delete</h2>
+                </div>
+
                 
                 `;
+                comment.style.position = "relative";
+                comment.style.display = "flex";
+                comment.style.justifyContent = "space-between";
+                comment.style.alignItems = "start";
+
                 commentSection.appendChild(comment);
+                const textArea = document.getElementById("EditcommentBox" + element1.id);
+                textArea.value = element1.content;
             })
         }
-        
+
     });
 
 }
 
 // Post a comment
-const postComment=(id)=> {
+const postComment = (id) => {
     console.log(id);
     const commentText = commentBox.value.trim();
+    const commentId = posts.find(item => item.id == id).postContent.comments.length;
+    console.log(commentId);
     if (commentText) {
-        const comment ={
-            author:{
-                image:user.userInfo.image,
-                name:user.userInfo.userName,
+        const comment = {
+            id: commentId + 1,
+            author: {
+                image: user.userInfo.image,
+                name: user.userInfo.userName,
+                email: user.email
             },
-            date:getFormattedDate(),
-            content:commentText
+            date: getFormattedDate(),
+            content: commentText
 
         }
-        posts.forEach(element=>{
-            if(element.id==id){
+        posts.forEach(element => {
+            if (element.id == id) {
                 element.postContent.comments.push(comment);
             }
         })
@@ -642,6 +670,87 @@ const postComment=(id)=> {
         alert("Please enter a comment.");
     }
 };
+window.deleteComment = (postId, commentId) => {
+
+    console.log(postId);
+    // loop to go through the array of posts to find the post we want to delete
+    posts.forEach(element => {
+        // finding the post we want by comparing id
+        if (element.id == postId) {
+            // checking the if the authors email and the user email are same
+            element.postContent.comments.forEach(element1 => {
+                if (element1.id == commentId) {
+                    if (element1.author.email == user.email) {
+                        element.postContent.comments = element.postContent.comments.filter(item => item.id != commentId);
+                        showComments(postId);
+                    }
+                    else {
+                        alert("You cannot delete someone elses comment");
+                    }
+
+                }
+            })
+        }
+
+    });
+
+}
+window.editComment = (postId, commentId) => {
+    posts.forEach(element => {
+        // finding the post we want by comparing id
+        if (element.id == postId) {
+            // checking the if the authors email and the user email are same
+            element.postContent.comments.forEach(element1 => {
+                if (element1.id == commentId) {
+                    if (element1.author.email == user.email) {
+                        const commentText = document.getElementById("commentText" + commentId);
+                        const commentEditBoxContainer = document.getElementById("commentEditBoxContainer" + commentId);
+                        commentText.style.display = "none";
+                        commentEditBoxContainer.style.display = "block"
+                    }
+                    else {
+                        alert("You cannot edit someone elses comment");
+                    }
+
+                }
+            })
+        }
+
+    });
+
+}
+window.savecommentUpdate = (postId, commentId) => {
+    const newComment = document.getElementById("EditcommentBox" + commentId).value;
+    const commentText = document.getElementById("commentText" + commentId);
+    posts.forEach(element => {
+        if (element.id == postId) {
+            element.postContent.comments.forEach(element1=>{
+                if(element1.id==commentId){
+                    if(element1.author.email==user.email){
+                        element1.content=newComment;
+                        commentText.innerText=newComment;
+                    }
+                }
+            })
+           
+        }
+
+    });
+    const commentEditBoxContainer = document.getElementById("commentEditBoxContainer" + commentId);
+    commentText.style.display = "block";
+    commentEditBoxContainer.style.display = "none"
+
+
+
+
+}
+window.cancelComment = (commentId) => {
+    const commentText = document.getElementById("commentText" + commentId);
+    const commentEditBoxContainer = document.getElementById("commentEditBoxContainer" + commentId);
+    commentText.style.display = "block";
+    commentEditBoxContainer.style.display = "none"
+
+}
 
 const logout = () => {
     user = null;
@@ -652,9 +761,19 @@ const logout = () => {
 signupButton.addEventListener('click', navToRegistration);
 logoutButton.addEventListener('click', logout);
 // function to edit/delete toggle menu on posts 
-function menuToggle(event, id) {
+window.menuToggle = (e, id) => {
     const menuId = "menu" + id;
-    event.stopPropagation(); // Prevent the event from bubbling up
+    e.stopPropagation(); // Prevent the event from bubbling up
+    var menu = document.getElementById(menuId);
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+    } else {
+        menu.style.display = 'block';
+    }
+}
+window.commentMenuToggle = (e, id) => {
+    const menuId = "commentMenu" + id;
+    e.stopPropagation(); // Prevent the event from bubbling up
     var menu = document.getElementById(menuId);
     if (menu.style.display === 'block') {
         menu.style.display = 'none';
